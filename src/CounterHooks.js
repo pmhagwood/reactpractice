@@ -1,6 +1,8 @@
 
 // State is not something that is native to a function, so we can add it to the import via { useState }, so we add a comma after react and then add { useState } and then we can call useState from the function.
-import React, { useState } from "react";
+// We add useContext so we can use the theme 
+import React, { useState, useContext } from "react";
+import { ThemeContext } from "./App";
 
 
 // We need to be able to pass in the props so we can do that via props inside the function
@@ -16,6 +18,8 @@ export default function CounterHooks({ initialCount }) {
     // and instead of setting a full state, we can just set the count setCount
     // this is useful because we can break our state up into multiple variables.
     const [count, setCount] = useState(initialCount)
+    // Here we are setting the theme and passing it the context, which we call above.
+    const style = useContext(ThemeContext)
 
     // useState is the same as setting state = to something as we did in the class.
     return (
@@ -26,13 +30,14 @@ export default function CounterHooks({ initialCount }) {
                     return {count: prevState.count - 1}
                 })}>-</button> */}
                 {/* setCount calls the previous Count, but we can call the variable anything we want. */}
-                <button onClick={() => setCount(prevCount => prevCount - 1)}>-</button>
+                {/* Here we can call our theme which we call style and set it to style */}
+                <button style={style} onClick={() => setCount(prevCount => prevCount - 1)}>-</button>
                 {/* Now you can remove the props from props.initialCount and just have initialCount */}
                 
                 {/* Now, because we changed the state to a single number variable, we can remove state.count because we only need count. */}
                 {/* <span>{state.count}</span> */}
                 <span>{count}</span>
-                <button onClick={() => setCount(prevCount => prevCount + 1)}>+</button>
+                <button style={style} onClick={() => setCount(prevCount => prevCount + 1)}>+</button>
             </div>
     )
 }

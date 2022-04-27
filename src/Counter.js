@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { ThemeContext } from "./App";
 
 // In order to make the site reactive and change, we need to use State. Every time you change state, you re-render the component. 
 
@@ -18,13 +19,19 @@ export default class Counter extends Component {
     render() {
         // console.log("Render Counter")
         return (
-            <div>
-                {/* Here we have replaced a normal eventlistener with "onClick" and we are setting up a changeCount variable inside the function and assigning a value */}
-                <button onClick={() => this.changeCount(-1)}>-</button>
-                {/* below we are passing the "count" from the state. The value of count is being passed from App.js via initialCount */}
-                <span>{this.state.count}</span>
-                <button onClick={() => this.changeCount(+1)}>+</button>
-            </div>
+            <ThemeContext.Consumer>
+                {style => (
+                    <div>
+                        {/* Here we have replaced a normal eventlistener with "onClick" and we are setting up a changeCount variable inside the function and assigning a value */}
+                        <button style={style} onClick={() => this.changeCount(-1)}>-</button>
+                        {/* below we are passing the "count" from the state. The value of count is being passed from App.js via initialCount */}
+                        <span>{this.state.count}</span>
+                        <button style={style} onClick={() => this.changeCount(+1)}>+</button>
+                    </div>
+                )}
+            
+            </ThemeContext.Consumer>
+            
         )
     }
 
